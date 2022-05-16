@@ -1,14 +1,18 @@
 #pulls info from database for Comboboxes
 import mysql.connector
+import os
+
+#os.environ["MTC_DATABASE_PASSWORD"] = ''
+
+database_password = os.getenv('MTC_DATABASE_PASSWORD')
+print(database_password)
 
 #connecting to the printer database
-#add the details for your database below
-#in future versions this will be done through a GUI interface
 my_connect = mysql.connector.connect(
-  host="",
-  user="",
-  passwd="", #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
-  database=""
+  host="localhost",
+  user="root",
+  passwd=database_password, #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
+  database="printers"
 )
 
 #sample query for data pane, will probably be commented out in final version

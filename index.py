@@ -20,7 +20,7 @@ def runQuery():
 
 #creating window
 window = tk.Tk()
-window.title('Open Asset')
+window.title('MTC - Printers')
 window.geometry('1050x950')
 
 #frame for Ks Ku's image
@@ -28,7 +28,7 @@ imageFrame = tk.Frame(window)
 
 #MTC logo for Ks Ku
 # Create an object of tkinter ImageTk
-img = ImageTk.PhotoImage(Image.open("open_asset_logo.png"))
+img = ImageTk.PhotoImage(Image.open("asset_one.png"))
 
 # Create a Label Widget to display the text or Image
 label = ttk.Label(imageFrame, image = img)
