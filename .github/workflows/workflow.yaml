@@ -1,4 +1,0 @@
-- name: execute py script
-        env: 
-          MTC_DATABASE_PASSWORD: ${{ secrets.MTC_DATABASE_PASSWORD }}
-        run: python main.py
