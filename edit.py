@@ -14,7 +14,7 @@ def run(o_name, o_tag, o_manufacturer, o_model, o_room, o_serial, o_department, 
     building = tk.StringVar(edit, name = "building")
     buildingedit = ttk.Entry(edit,width = 28, textvariable = building)
     buildingedit.grid(column = 2, row = 0, padx = 10, pady = 10)
-    buildingedit.insert(0,"bryson")
+    buildingedit.insert(0,"")
 
     #room
     ttk.Label(edit,text = "Room",font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)

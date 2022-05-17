@@ -17,7 +17,7 @@ my_connect = mysql.connector.connect(
 #then the result of the query will be returned and handled by index.py for output
 def exampleQuery():
     my_conn = my_connect.cursor()
-    my_conn.execute("SELECT * FROM bryson") #returns bryson table?
+    my_conn.execute("SELECT * FROM company_assets") #returns bryson table?
     i=0
     brysonArr = []
     #Then brysonArr will be returned for index.py to populate a table in tkinter
@@ -38,7 +38,7 @@ def exampleQuery():
 #TODO: update the table view after editing is complete
 def addPrinter(building, room, name, tag, manufacturer, model, serial, department, toner):
     my_conn = my_connect.cursor()
-    my_conn.execute("INSERT INTO printers."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
+    my_conn.execute("INSERT INTO test_database."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
     my_connect.commit()
 
 #function to edit a printer in the database
@@ -51,7 +51,7 @@ def editPrinter(building, room, name, tag, manufacturer, model, serial, departme
     row = []
     for data in my_conn: row.append(data)
     identifier = row[0][0]
-    my_conn.execute('UPDATE printers.'+building+' SET room = "'+room+'", `name` = "'+name+'", tag = "'+tag+'", manufacturer = "'+manufacturer+'", model = "'+model+'", serial = "'+serial+'", department = "'+department+'", toner = "'+toner+'" WHERE ID = '+str(identifier))
+    my_conn.execute('UPDATE test_database.'+building+' SET room = "'+room+'", `name` = "'+name+'", tag = "'+tag+'", manufacturer = "'+manufacturer+'", model = "'+model+'", serial = "'+serial+'", department = "'+department+'", toner = "'+toner+'" WHERE ID = '+str(identifier))
     print(row)
     print(identifier)
     print(building, room, name, tag, manufacturer, model, serial, department, toner)
@@ -70,7 +70,7 @@ def deletePrinter(name, table):
 #function which returns a list of buildings
 def getBuildings():
     my_conn = my_connect.cursor(buffered = True)
-    my_conn.execute("USE printers")
+    my_conn.execute("USE test_database")
     my_conn.execute("SHOW TABLES")
     buildings = []
     for x in my_conn.fetchall(): buildings.append(x[0])
