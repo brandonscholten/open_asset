@@ -12,7 +12,7 @@ The current version of Open Aset is designed with a very specific SQL database s
 - Department 
 - Toner
 
-![](screnshots/Screen Shot 2022-05-19 at 15.16.37.png)
+![](screnshots/"Screen Shot 2022-05-19 at 15.16.37.png")
 
 This database schema was originally designed to be used to exclusively for tracking printers. However, I would like to allow for any database schema to be used in future versions of the software. 
 
