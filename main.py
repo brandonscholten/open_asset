@@ -1,3 +1,4 @@
+from tkinter import messagebox
 #pulls info from database for Comboboxes
 import mysql.connector
 
@@ -34,12 +35,15 @@ def exampleQuery():
     return brysonArr
 
 #function to add a record to the printer database 
-#TODO: put this in a try catch block so that errors are returned
 #TODO: update the table view after editing is complete
 def addPrinter(building, room, name, tag, manufacturer, model, serial, department, toner):
-    my_conn = my_connect.cursor()
-    my_conn.execute("INSERT INTO test_database."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
-    my_connect.commit()
+    try:
+        my_conn = my_connect.cursor()
+        my_conn.execute("INSERT INTO test_database."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
+        my_connect.commit()
+        messagebox.showinfo("Success!","Record added successfully!")
+    except:
+        messagebox.showerror("Database Error!", "Table does not exist!")
 
 #function to edit a printer in the database
 #Get the ID based on the name, use the ID to update the record

@@ -68,7 +68,6 @@ def run():
         import main
         main.addPrinter(add.getvar(name = "building"),add.getvar(name = "room"),add.getvar(name = "name"),add.getvar(name = "tag"),add.getvar(name = "manufacturer"),add.getvar(name = "model"),add.getvar(name = "serial"),add.getvar(name = "department"),add.getvar(name = "toner")) 
         add.destroy()
-        messagebox.showinfo("Success!","Record added successfully!")
 
     #submit button
     ttk.Button(add, text = "submit record", command=addRecord).grid(column = 2, row = 9)
