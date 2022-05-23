@@ -5,10 +5,10 @@ import mysql.connector
 #add the details for your database below
 #in future versions this will be done through a GUI interface
 my_connect = mysql.connector.connect(
-  host="",
-  user="",
-  passwd="", #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
-  database=""
+  host="localhost",
+  user="root",
+  passwd="pR1nT3RD8", #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
+  database="test_database"
 )
 
 #sample query for data pane, will probably be commented out in final version
