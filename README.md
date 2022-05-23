@@ -12,7 +12,7 @@ The current version of Open Aset is designed with a very specific SQL database s
 - Department 
 - Toner
 
-![](https://raw.github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-19%20at%2015.16.37.png)
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-19%20at%2015.16.37.png)
 
 This database schema was originally designed to be used to exclusively for tracking printers. However, I would like to allow for any database schema to be used in future versions of the software. 
 
