@@ -50,7 +50,7 @@ example@user# python3 index.py
 
 ***Main Window***
 
-![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen Shot 2022-05-19 at 15.24.28.png)
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/"Screen Shot 2022-05-19 at 15.24.28.png")
 
 After the index.py file is successfully ran you will be presented with the main program window. This windows consists of three "sections" which facilitate interaction with the database. The first section includes a combobox and search bar which can be used to query the database. 
 
