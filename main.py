@@ -42,24 +42,27 @@ def addPrinter(building, room, name, tag, manufacturer, model, serial, departmen
         my_conn.execute("INSERT INTO test_database."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
         my_connect.commit()
         messagebox.showinfo("Success!","Record added successfully!")
-    except:
+    except: 
         messagebox.showerror("Database Error!", "Table does not exist!")
 
 #function to edit a printer in the database
 #Get the ID based on the name, use the ID to update the record
-#TODO: put this in a try catch block as well
 #TODO: update the table view after editing is complete
 def editPrinter(building, room, name, tag, manufacturer, model, serial, department, toner):
-    my_conn = my_connect.cursor()
-    my_conn.execute('SELECT * FROM '+building+' WHERE name ='+'\''+name+'\'')
-    row = []
-    for data in my_conn: row.append(data)
-    identifier = row[0][0]
-    my_conn.execute('UPDATE test_database.'+building+' SET room = "'+room+'", `name` = "'+name+'", tag = "'+tag+'", manufacturer = "'+manufacturer+'", model = "'+model+'", serial = "'+serial+'", department = "'+department+'", toner = "'+toner+'" WHERE ID = '+str(identifier))
-    print(row)
-    print(identifier)
-    print(building, room, name, tag, manufacturer, model, serial, department, toner)
-    my_connect.commit()
+    try:
+        my_conn = my_connect.cursor()
+        my_conn.execute('SELECT * FROM '+building+' WHERE name ='+'\''+name+'\'')
+        row = []
+        for data in my_conn: row.append(data)
+        identifier = row[0][0]
+        my_conn.execute('UPDATE test_database.'+building+' SET room = "'+room+'", `name` = "'+name+'", tag = "'+tag+'", manufacturer = "'+manufacturer+'", model = "'+model+'", serial = "'+serial+'", department = "'+department+'", toner = "'+toner+'" WHERE ID = '+str(identifier))
+        print(row)
+        print(identifier)
+        print(building, room, name, tag, manufacturer, model, serial, department, toner)
+        my_connect.commit()
+        messagebox.showinfo("Success!","Record edited successfully!")
+    except: 
+        messagebox.showerror("Database Error!", "Table does not exist")
 
 #function to delete a record
 #TODO find a way to pass building to this function

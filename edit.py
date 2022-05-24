@@ -77,7 +77,6 @@ def run(o_name, o_tag, o_manufacturer, o_model, o_room, o_serial, o_department, 
         import main
         main.editPrinter(edit.getvar(name = "building"),edit.getvar(name = "room"),edit.getvar(name = "name"),edit.getvar(name = "tag"),edit.getvar(name = "manufacturer"),edit.getvar(name = "model"),edit.getvar(name = "serial"),edit.getvar(name = "department"),edit.getvar(name = "toner")) 
         edit.destroy()
-        messagebox.showinfo("Success!","Record edited successfully!")
 
     #submit button
     ttk.Button(edit, text = "submit record", command=editRecord).grid(column = 2, row = 9)
