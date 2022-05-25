@@ -12,13 +12,23 @@ my_connect = mysql.connector.connect(
   database="test_database"
 )
 
+#function which returns a list of buildings
+def getBuildings():
+    my_conn = my_connect.cursor(buffered = True)
+    my_conn.execute("USE test_database")
+    my_conn.execute("SHOW TABLES")
+    buildings = []
+    for x in my_conn.fetchall(): buildings.append(x[0])
+    return buildings
+
 #sample query for data pane, will probably be commented out in final version
 #there will probably be a function to get all the options for the comboboxes
 #then a query function which will take all the text variables and turn them into a query
 #then the result of the query will be returned and handled by index.py for output
 def exampleQuery():
     my_conn = my_connect.cursor()
-    my_conn.execute("SELECT * FROM company_assets") #returns bryson table?
+    buildings = getBuildings()
+    my_conn.execute("SELECT * FROM "+buildings[0]) #returns bryson table?
     i=0
     brysonArr = []
     #Then brysonArr will be returned for index.py to populate a table in tkinter
@@ -73,15 +83,6 @@ def deletePrinter(name, table):
     my_conn.execute('SELECT * FROM '+table)
     my_conn.execute('DELETE FROM '+table+' WHERE name = "'+name+'"')
     my_connect.commit()
-
-#function which returns a list of buildings
-def getBuildings():
-    my_conn = my_connect.cursor(buffered = True)
-    my_conn.execute("USE test_database")
-    my_conn.execute("SHOW TABLES")
-    buildings = []
-    for x in my_conn.fetchall(): buildings.append(x[0])
-    return buildings
 
 #function to perform a search of the database and return results
 def getData(building, search):

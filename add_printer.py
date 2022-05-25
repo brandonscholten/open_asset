@@ -9,10 +9,12 @@ def run():
     add.title('Add')
     add.geometry('400x455')
 
-    #building TODO: make this a ComboBox to reduce chances of user error
+    #building
+    import main
     ttk.Label(add,text = "Building",font =("Times New Roman", 15)).grid(column = 0, row = 0, padx = 10, pady = 1)
     building = tk.StringVar(add, name = "building")
-    buildingAdd = ttk.Entry(add,width = 28, textvariable = building)
+    buildingAdd = ttk.Combobox(add,width = 28, textvariable = building)
+    buildingAdd['values'] = main.getBuildings()
     buildingAdd.grid(column = 2, row = 0, padx = 10, pady = 10)
 
     #room

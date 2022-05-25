@@ -10,9 +10,11 @@ def run(o_name, o_tag, o_manufacturer, o_model, o_room, o_serial, o_department, 
     edit.geometry('400x455')
 
     #building TODO: retrieve building from the current state of the filter
+    import main
     ttk.Label(edit,text = "Building",font =("Times New Roman", 15)).grid(column = 0, row = 0, padx = 10, pady = 10)
     building = tk.StringVar(edit, name = "building")
-    buildingedit = ttk.Entry(edit,width = 28, textvariable = building)
+    buildingedit = ttk.Combobox(edit,width = 28, textvariable = building)
+    buildingedit['values'] = main.getBuildings()
     buildingedit.grid(column = 2, row = 0, padx = 10, pady = 10)
     buildingedit.insert(0,"")
 
