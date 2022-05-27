@@ -71,9 +71,9 @@ The third section includes the buttons used to add, edit, and delete records. Th
 
 To add a record, start by clicking the add button at the bottom of the window. After clicking the button you will be presented with the form for adding a new record. 
 
-![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-20%20at%2018.02.55.png)
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-26%20at%2023.05.52.png)
 
-Enter the name of the table which you want to add a record to in the Building field. This name must match exactly or the record will not be added to a table. 
+Select the table you would like to add a record to from the dropdown menu. 
 
 Fill in the rest of the information and click the submit record button when you are finished. Upen a successful submission you should see a dialogue box inidcating that your record was added. 
 
@@ -83,9 +83,9 @@ Fill in the rest of the information and click the submit record button when you 
 
 To edit a record, start by selecting the record you would like to modify in the table. The selected record should be hilighted in blue. 
 
-![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-23%20at%2013.03.13.png)
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-26%20at%2023.06.38.png)
 
-Next click the edit button at the bottom of the window. This should bring up the window to eidt a reocrd. The values of the table row should automatically populate the field. In the current version of Open Asset the "Building" field may auto populate with the wrong table. In order for the record to be changed, this field must be corrected. 
+Next click the edit button at the bottom of the window. This should bring up the window to eidt a reocrd. The values of the table row should automatically populate the fields.
 
 ![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-23%20at%2013.04.04.png)
 
