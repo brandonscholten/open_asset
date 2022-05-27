@@ -45,7 +45,7 @@ building = tk.StringVar(name = 'building')
 buildingSelect = ttk.Combobox(queryFrame,width = 15, textvariable = building)
 buildingSelect['values'] = main.getBuildings() 
 buildingSelect.grid(column = 1, row = 1, padx = 10, pady = 10)
-buildingSelect.current()
+buildingSelect.current(0)
 
 #search box
 ttk.Label(queryFrame,text = "Search",font =("Times New Roman", 15)).grid(column = 2, row = 1, padx = 10, pady = 10)
@@ -111,12 +111,15 @@ def add():
     
 #edit function
 def edit(): 
-    import edit
-    row = getRow()
-    edit.run(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
-    resetTable()
-    dataTable.update()
-    dataFrane.update()
+    try:
+        import edit
+        row = getRow()
+        edit.run(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
+        resetTable()
+        dataTable.update()
+        dataFrane.update()
+    except:
+        messagebox.showerror("Error!", "No record selected!")
 
 #delete function
 def delete():

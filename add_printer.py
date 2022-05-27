@@ -15,6 +15,7 @@ def run():
     building = tk.StringVar(add, name = "building")
     buildingAdd = ttk.Combobox(add,width = 28, textvariable = building)
     buildingAdd['values'] = main.getBuildings()
+    buildingAdd.current(0)
     buildingAdd.grid(column = 2, row = 0, padx = 10, pady = 10)
 
     #room

@@ -15,6 +15,7 @@ def run(o_name, o_tag, o_manufacturer, o_model, o_room, o_serial, o_department, 
     building = tk.StringVar(edit, name = "building")
     buildingedit = ttk.Combobox(edit,width = 28, textvariable = building)
     buildingedit['values'] = main.getBuildings()
+    buildingedit.current(0)
     buildingedit.grid(column = 2, row = 0, padx = 10, pady = 10)
     buildingedit.insert(0,"")
 
