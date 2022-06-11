@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk 
 from tkinter import messagebox
 from PIL import ImageTk, Image
-import add_printer
+import add
 import main
 
 #function to refresh data table
@@ -40,7 +40,7 @@ imageFrame.pack()
 queryFrame = tk.Frame(window)
 
 #building select
-ttk.Label(queryFrame,text = "Building",font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
+ttk.Label(queryFrame,text = "Table",font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
 building = tk.StringVar(name = 'building')
 buildingSelect = ttk.Combobox(queryFrame,width = 15, textvariable = building)
 buildingSelect['values'] = main.getBuildings() 
@@ -61,28 +61,23 @@ queryFrame.pack()
 
 #data view
 import main
-dataFrame = tk.Frame(window, bg = 'grey', height = 450, width = 1450) #frame for the data table
+dataFrame = tk.Frame(window, bg = 'grey', height = 450, width = 1) #frame for the data table
 #style = ttk.Style().theme_use('clam') #EWWWWWWWWW worst python tutorial example ever! Never use this theme, it's awful
 #I should have known that a theme named 'clam' would look horrible smh...
-dataTable = ttk.Treeview(dataFrame, column = ("ID", "Name", "Tag", "Manufacturer", "Model", "Room", "Serial #", "Department", "Toner"), show = 'headings', height = 35)
-dataTable.column("# 1", anchor='center', width='50')
-dataTable.heading("# 1", text="ID")
-dataTable.column("# 2", anchor='center', width="200")
-dataTable.heading("# 2", text="Name")
-dataTable.column("# 3", anchor='center', width="75")
-dataTable.heading("# 3", text="Tag")
-dataTable.column("# 4", anchor='center', width="75")
-dataTable.heading("# 4", text="Manufacturer")
-dataTable.column("# 5", anchor='center', width="200")
-dataTable.heading("# 5", text="Model")
-dataTable.column("# 6", anchor='center', width="125")
-dataTable.heading("# 6", text="Room")
-dataTable.column("# 7", anchor='center', width="125")
-dataTable.heading("# 7", text="Serial #")
-dataTable.column("# 8", anchor='center', width="75")
-dataTable.heading("# 8", text="Department")
-dataTable.column("# 9", anchor='center', width="125")
-dataTable.heading("# 9", text="Toner")
+#loop to create column param for dynamic treeview
+treeViewCols = ()
+for x in main.getColumns(window.getvar(name = 'building')): treeViewCols += (x,)
+#create dataTable
+dataTable = ttk.Treeview(dataFrame, column = treeViewCols, show = 'headings', height = 35)
+#loop to generate width of each column
+widthArr = []
+i=1
+for col in treeViewCols: #TODO: allow users to resize columns
+    length = len(col)
+    width = length*21
+    dataTable.column("# "+str(i), anchor='center', width = str(width))
+    dataTable.heading("# "+str(i), text = col)
+    i+=1
 dataTable.pack()
 dataFrame.pack()
 
@@ -103,8 +98,9 @@ def getRow():
     return dataTable.item(item, 'values')
 
 #add function
-def add(): 
-    add_printer.run()
+def addItem(): 
+    import add
+    add.run(window.getvar(name = 'building'))
     resetTable()
     dataTable.update()
     dataFrame.update()
@@ -114,19 +110,22 @@ def edit():
     try:
         import edit
         row = getRow()
-        edit.run(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
+        edit.run(window.getvar(name = 'building'),[row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]])
         resetTable()
         dataTable.update()
         dataFrane.update()
     except:
         messagebox.showerror("Error!", "No record selected!")
+        raise
 
 #delete function
 def delete():
+    import main
     table = window.getvar(name = 'building')
     print('table: '+table)
     row = getRow()
-    main.deletePrinter(row[1],table)
+    columns = main.getColumns(table)
+    main.deletePrinter(columns[0],row[0],table)
     messagebox.showinfo("Success!","Record deleted successfully!")
     resetTable()
     dataTable.update()
@@ -134,7 +133,7 @@ def delete():
 
 #add, edit, and delete buttons
 actionFrame = ttk.Frame(window)
-ttk.Button(actionFrame, text = "Add", command=add).grid(column = 0, row = 0) 
+ttk.Button(actionFrame, text = "Add", command=addItem).grid(column = 0, row = 0) 
 ttk.Button(actionFrame, text = "edit", command=edit).grid(column = 1, row = 0) 
 ttk.Button(actionFrame, text = "delete", command=delete).grid(column = 2, row = 0) 
 actionFrame.pack()
