@@ -73,8 +73,6 @@ Fill in the information and click the submit record button when you are finished
 
 To edit a record, start by selecting the record you would like to modify in the table. The selected record should be hilighted in blue. 
 
-![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-05-26%20at%2023.06.38.png)
-
 Next click the edit button at the bottom of the window. This should bring up the window to eidt a reocrd. The values of the table row should automatically populate the fields.
 
 ![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-06-16%20at%2008.12.07.png)
