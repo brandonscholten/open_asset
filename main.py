@@ -2,6 +2,16 @@ from tkinter import messagebox
 #pulls info from database for Comboboxes
 import mysql.connector
 
+#import define and then get the database name
+import define
+#databaseName = define.getDatabaseName()
+#define.die()
+
+#get database name from file
+databaseNameFile = open('database.txt', 'r+')
+databaseName = databaseNameFile.read()
+print("USER DEFINED DATABASE: "+databaseName)
+
 #connecting to the printer database
 #add the details for your database below
 #in future versions this will be done through a GUI interface
@@ -9,13 +19,13 @@ my_connect = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="pR1nT3RD8", #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
-  database="test_database"
+  database=databaseName
 )
 
 #function which returns a list of buildings
 def getBuildings():
     my_conn = my_connect.cursor(buffered = True)
-    my_conn.execute("USE test_database")
+    my_conn.execute("USE "+databaseName)
     my_conn.execute("SHOW TABLES")
     buildings = []
     for x in my_conn.fetchall(): buildings.append(x[0])
@@ -24,7 +34,7 @@ def getBuildings():
 #function which returns a list of columns in the current table
 def getColumns(table):
     my_conn = my_connect.cursor(buffered = True)
-    my_conn.execute("USE test_database")
+    my_conn.execute("USE "+databaseName)
     my_conn.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+table+"'")
     columns = []
     for x in my_conn.fetchall(): columns.append(x[0])
@@ -63,7 +73,7 @@ def addPrinter(building,addArrFields,addArrValues):
     try:
         my_conn = my_connect.cursor()
         #create execution string with loop
-        command = 'INSERT INTO test_database.'+building+"("
+        command = 'INSERT INTO '+databaseName+'.'+building+"("
         i=0
         for x in addArrFields: 
             if (x.lower() == 'id'):
@@ -106,7 +116,7 @@ def editPrinter(building,colArr,valueArr):
         #my_conn.execute('UPDATE test_database.'+building+' SET room = "'+room+'", `name` = "'+name+'", tag = "'+tag+'", manufacturer = "'+manufacturer+'", model = "'+model+'", serial = "'+serial+'", department = "'+department+'", toner = "'+toner+'" WHERE ID = '+str(identifier))
         #dynamically set each column in colArr to the correct value in valueArr using a loop
         i=0 #used for index of valueArr
-        command = 'UPDATE test_database.'+building+' SET ' #UPDATE command
+        command = 'UPDATE '+databaseName+'.'+building+' SET ' #UPDATE command
         for x in colArr: 
             if (x.lower() == 'id'): 
                 i+=1
