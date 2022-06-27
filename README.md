@@ -16,17 +16,14 @@ Start by cloning the git repositiory.
 git clone https://github.com/brandonscholten/open_asset/tree/main
 ```
 
-Next, edit the main.py file to include the details of your database on lines 8-11
+Next, edit the main.py file to include the details of your database on lines 18-23
 
 ```
-#connecting to the printer database
-#add the details for your database below
-#in future versions this will be done through a GUI interface
 my_connect = mysql.connector.connect(
-  host="yourServerIP",
-  user="yourUsernameHere",
-  passwd="yourServerPasswordHere",
-  database="yourDatabaseNameHere"
+  host="localhost",           #This is the IP address of your SQL server.
+  user="root",                #This is the username which has access to your SQL server.
+  passwd="yourPasswordHere",  #This is the password you will be using to access your SQL server.
+  database=databaseName
 )
 ```
 
@@ -37,6 +34,16 @@ To start open asset, navigate to the cloned folder and run index.py.
 ```
 example@user# python3 index.py
 ```
+
+***Enter Database Details Window***
+
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-06-27%20at%2016.09.52.png)
+
+Before the main window opens, you will be presented with this dialogue box which asks for the name of your database.
+
+Enter the name of your database schema in this window and click "ok" to continue to the main window.
+
+I plan for users to be able to add all database details such as hostname, username, and password through this window in a future update.
 
 ***Main Window***
 
