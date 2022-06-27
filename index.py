@@ -4,7 +4,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import add
-import main
+try: import main
+except: messagebox.showerror('Database Error!', 'Could not find database schema.')
 
 #function to refresh data table
 def rewriteDataTable(data):
