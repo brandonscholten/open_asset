@@ -1,26 +1,45 @@
+#import for error catching messages
 from tkinter import messagebox
 #pulls info from database for Comboboxes
 import mysql.connector
-
 #import define and then get the database name
 import define
 #databaseName = define.getDatabaseName()
 #define.die()
+#import cryptography modules
+from cryptography.fernet import Fernet
 
-#get database name from file
-databaseNameFile = open('database.txt', 'r+')
-databaseName = databaseNameFile.read()
-print("USER DEFINED DATABASE: "+databaseName)
+#get login details from file
+databaseInfo = open('database.txt', 'r+')
+databaseInfoLines = databaseInfo.readlines()
+databaseHost = databaseInfoLines[0]
+databaseUser = databaseInfoLines[1]
+databaseName = databaseInfoLines[2]
+databaseInfo.close()
+#get password symmetric key
+keyFile = open('key.bin', 'rb')
+key = keyFile.read()
+keyFile.close()
+#get password ciphertext and decrypt
+cipher_suite = Fernet(key)
+with open('passwd.bin', 'rb') as file_object:
+    for line in file_object:
+        encryptedpwd = line
+uncipher_text = (cipher_suite.decrypt(encryptedpwd))
+password = bytes(uncipher_text).decode("utf-8") #convert to string
 
-#connecting to the printer database
-#add the details for your database below
-#in future versions this will be done through a GUI interface
-my_connect = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="pR1nT3RD8", #TODO This is probably not a good thing to have in plain text but I have no idea how to fix it
-  database=databaseName
-)
+config = {
+    'host': databaseHost,
+    'user': databaseUser,
+    'password': password, #for some reason this HAS to be a string and not a variable and I'm confused and hurt
+    'database': databaseName
+}
+
+my_connect = mysql.connector.connect(**config)
+#  host=databaseHost,
+#  user=databaseUser,
+#  password=databasePass, #TODO encrypt the local file holding the password
+#  database=databaseName
 
 #function which returns a list of buildings
 def getBuildings():
