@@ -36,6 +36,8 @@ Enter the password to your SQL database in the password field.
 
 Enter the name of your database schema in the database field. 
 
+Once you have entered all of this information, click connect to connect to your database and proceed to the main window.
+
 ***Main Window***
 
 ![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-06-16%20at%2007.55.25.png)
