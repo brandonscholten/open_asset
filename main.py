@@ -9,6 +9,8 @@ import define
 #import cryptography modules
 from cryptography.fernet import Fernet
 
+import os
+
 #get login details from file
 databaseInfo = open('database.txt', 'r+')
 databaseInfoLines = databaseInfo.readlines()
@@ -40,6 +42,11 @@ my_connect = mysql.connector.connect(**config)
 #  user=databaseUser,
 #  password=databasePass, #TODO encrypt the local file holding the password
 #  database=databaseName
+
+#once the database is connected, delete the encryption key and hashed password files
+#I think for security purposes I'm not going to autofill the password since I can't securely store it.
+os.remove('key.bin')
+os.remove('passwd.bin')
 
 #function which returns a list of buildings
 def getBuildings():
