@@ -1,9 +1,25 @@
 import tkinter as tk
 from tkinter import ttk
 
+#get database details if possible
+databaseHost = ''
+databaseUser = ''
+databaseName = ''
+try:
+    #get login details from file
+    databaseInfo = open('database.txt', 'r+')
+    databaseInfoLines = databaseInfo.readlines()
+    databaseHost = databaseInfoLines[0]
+    databaseUser = databaseInfoLines[1]
+    databaseName = databaseInfoLines[2]
+    databaseInfo.close()
+except:
+    print('ERROR RETRIEVING DETAILS')
+    raise
+
 #import for password encryption
 from cryptography.fernet import Fernet
-key = Fernet.generate_key()#TODO: pass the key off to the index file for decryption
+key = Fernet.generate_key()
 
 #write database name to file after ok is clicked
 def defineDatabase(): 
@@ -33,12 +49,14 @@ define.geometry("355x245")
 ttk.Label(define, text = "Host", font =("Times New Romand", 15)).grid(column = 0, row = 0, padx = 10, pady = 10)
 host = tk.StringVar(name = "host")
 hostEdit = ttk.Entry(define, width = 24, textvariable = host)
+hostEdit.insert(0, databaseHost)
 hostEdit.grid(column = 1, row = 0, padx = 10, pady = 10)
 
 #username
 ttk.Label(define, text = "Username", font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
 username = tk.StringVar(name = "username")
 usernameEdit = ttk.Entry(define, width = 24, textvariable = username)
+usernameEdit.insert(0, databaseUser)
 usernameEdit.grid(column = 1, row = 1, padx = 10, pady = 10)
 
 #password
@@ -51,6 +69,7 @@ passwordEdit.grid(column = 1, row = 2, padx = 10, pady = 10)
 ttk.Label(define, text = "Database", font =("Times New Roman", 15)).grid(column = 0, row = 3, padx = 10, pady = 10)
 database = tk.StringVar(name = "database")
 databaseEdit = ttk.Entry(define, width = 24, textvariable = database)
+databaseEdit.insert(0, databaseName)
 databaseEdit.grid(column = 1, row = 3, padx = 10, pady = 10)
 
 #submit 

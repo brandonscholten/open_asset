@@ -38,10 +38,6 @@ config = {
 }
 
 my_connect = mysql.connector.connect(**config)
-#  host=databaseHost,
-#  user=databaseUser,
-#  password=databasePass, #TODO encrypt the local file holding the password
-#  database=databaseName
 
 #once the database is connected, delete the encryption key and hashed password files
 #I think for security purposes I'm not going to autofill the password since I can't securely store it.
