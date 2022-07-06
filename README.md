@@ -16,19 +16,6 @@ Start by cloning the git repositiory.
 git clone https://github.com/brandonscholten/open_asset/tree/main
 ```
 
-Next, edit the main.py file to include the details of your database on lines 18-23
-
-```
-my_connect = mysql.connector.connect(
-  host="localhost",           #This is the IP address of your SQL server.
-  user="root",                #This is the username which has access to your SQL server.
-  passwd="yourPasswordHere",  #This is the password you will be using to access your SQL server.
-  database=databaseName
-)
-```
-
-Once you have set up your database and edited main.py, you are ready to launch the application.
-
 To start open asset, navigate to the cloned folder and run index.py.
 
 ```
@@ -37,13 +24,17 @@ example@user# python3 index.py
 
 ***Enter Database Details Window***
 
-![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-06-27%20at%2016.09.52.png)
+![](https://github.com/brandonscholten/open_asset/blob/main/screenshots/Screen%20Shot%202022-07-05%20at%2023.28.46.png)
 
-Before the main window opens, you will be presented with this dialogue box which asks for the name of your database.
+Before the main window opens, you will be presented with this dialogue box which asks for some information about your database.
 
-Enter the name of your database schema in this window and click "ok" to continue to the main window.
+Enter the IP address of the server your SQL database is hosted on in the host field. 
 
-I plan for users to be able to add all database details such as hostname, username, and password through this window in a future update.
+Enter the username of the user which has access to the SQL database in the user field.
+
+Enter the password to your SQL database in the password field.
+
+Enter the name of your database schema in the database field. 
 
 ***Main Window***
 
