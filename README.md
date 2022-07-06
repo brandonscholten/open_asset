@@ -28,15 +28,11 @@ example@user# python3 index.py
 
 Before the main window opens, you will be presented with this dialogue box which asks for some information about your database.
 
-Enter the IP address of the server your SQL database is hosted on in the host field. 
-
-Enter the username of the user which has access to the SQL database in the user field.
-
-Enter the password to your SQL database in the password field.
-
-Enter the name of your database schema in the database field. 
-
-Once you have entered all of this information, click connect to connect to your database and proceed to the main window.
+- Enter the IP address of the server your SQL database is hosted on in the host field. 
+- Enter the username of the user which has access to the SQL database in the user field.
+- Enter the password to your SQL database in the password field.
+- Enter the name of your database schema in the database field. 
+- Once you have entered all of this information, click connect to connect to your database and proceed to the main window.
 
 ***Main Window***
 
