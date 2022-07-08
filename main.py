@@ -14,10 +14,12 @@ import os
 #get login details from file
 databaseInfo = open('database.txt', 'r+')
 databaseInfoLines = databaseInfo.readlines()
-databaseHost = databaseInfoLines[0]
-databaseUser = databaseInfoLines[1]
-databaseName = databaseInfoLines[2]
+databaseArr = databaseInfoLines[0].split(',')
+databaseHost = databaseArr[0]
+databaseUser = databaseArr[1]
+databaseName = databaseArr[2]
 databaseInfo.close()
+
 #get password symmetric key
 keyFile = open('key.bin', 'rb')
 key = keyFile.read()

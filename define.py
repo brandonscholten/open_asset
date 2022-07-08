@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import os
 
 #get database details if possible
 databaseHost = ''
@@ -9,13 +10,13 @@ try:
     #get login details from file
     databaseInfo = open('database.txt', 'r+')
     databaseInfoLines = databaseInfo.readlines()
-    databaseHost = databaseInfoLines[0]
-    databaseUser = databaseInfoLines[1]
-    databaseName = databaseInfoLines[2]
+    databaseArr = databaseInfoLines[0].split(',')
+    databaseHost = databaseArr[0]
+    databaseUser = databaseArr[1]
+    databaseName = databaseArr[2]
     databaseInfo.close()
 except:
     print('ERROR RETRIEVING DETAILS')
-    raise
 
 #import for password encryption
 from cryptography.fernet import Fernet
@@ -24,14 +25,15 @@ key = Fernet.generate_key()
 #write database name to file after ok is clicked
 def defineDatabase(): 
     with open('database.txt', 'w') as f:
-        f.write(
-            define.getvar(name = 'host')+'\n'+
-            define.getvar(name = 'username')+'\n'+
-            #define.getvar(name = 'password')+'\n'+ 
-            #instead of writing a paintext password here I am going to try encrypting the textvar and writing it to a different file
-            define.getvar(name = 'database')
-            )
-        f.close
+        #f.write(
+        #    define.getvar(name = 'host')+'\n'+
+        #    define.getvar(name = 'username')+'\n'+
+        #    #define.getvar(name = 'password')+'\n'+ 
+        #    #instead of writing a paintext password here I am going to try encrypting the textvar and writing it to a different file
+        #    define.getvar(name = 'database')
+        #    )
+        f.write(define.getvar(name = 'host')+','+define.getvar(name = 'username')+','+define.getvar(name = 'database'))
+        f.close()
     #encrypting the password input
     cipher_suite = Fernet(key)
     ciphered_text = cipher_suite.encrypt(bytes(define.getvar(name = 'password'), 'utf-8'))
@@ -74,5 +76,7 @@ databaseEdit.grid(column = 1, row = 3, padx = 10, pady = 10)
 
 #submit 
 ttk.Button(define, text = "connect", command =defineDatabase).grid(column = 1, row = 4, padx = 10, pady = 10)
+
+os.remove('database.txt')
 
 define.mainloop()
