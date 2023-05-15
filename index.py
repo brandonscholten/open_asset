@@ -8,13 +8,14 @@ try: import main
 except: 
     messagebox.showerror('Database Error!', 'Could not find database schema.')
     raise
-
+#get ID field if user has never connected to this database
+if (databaseId == ''): import getId
 #function to refresh data table
 def rewriteDataTable(data):
     #clear any data in the treeview
     for item in dataTable.get_children(): dataTable.delete(item)
     #inserting data
-    for row in data: dataTable.insert('', 'end', text="1", values=(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]))
+    for row in data: dataTable.insert('', 'end', text="1", values=(tuple(row)))
 
 #go query function
 def runQuery(): 
@@ -42,7 +43,7 @@ imageFrame.pack()
 #frame for query selection
 queryFrame = tk.Frame(window)
 
-#building select
+#table select
 ttk.Label(queryFrame,text = "Table",font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
 building = tk.StringVar(name = 'building')
 buildingSelect = ttk.Combobox(queryFrame,width = 15, textvariable = building)
@@ -58,7 +59,7 @@ searchSelect.grid(column = 3, row = 1, padx = 10, pady = 10)
 
 
 #go button
-ttk.Button(queryFrame, text = "GO!", command = runQuery).grid(column = 10, row = 1, padx = 10, pady = 10) #TODO: add command to start query
+ttk.Button(queryFrame, text = "GO!", command = runQuery).grid(column = 10, row = 1, padx = 10, pady = 10) 
 
 queryFrame.pack()
 
@@ -89,8 +90,8 @@ def resetTable():
     for item in dataTable.get_children(): dataTable.delete(item)
     #write sample data
     exampleData = main.exampleQuery() #example data for now
-    #dataTable.insert('', 'end', text="1", values=())
-    for row in exampleData: dataTable.insert('', 'end', text="1", values=(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]))
+    #dataTable.insert('', 'end', text="1", values=()) TODO: values should insert dynamically, wherever it happens
+    for row in exampleData: dataTable.insert('', 'end', text="1", values=(tuple(row)))
 
 #initial setup
 resetTable()
@@ -113,7 +114,7 @@ def edit():
     try:
         import edit
         row = getRow()
-        edit.run(window.getvar(name = 'building'),[row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]])
+        edit.run(window.getvar(name = 'building'),row)
         resetTable()
         dataTable.update()
         dataFrane.update()

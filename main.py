@@ -1,11 +1,13 @@
+import faulthandler
+faulthandler.enable()
 #import for error catching messages
 from tkinter import messagebox
 #pulls info from database for Comboboxes
 import mysql.connector
-#import define and then get the database name
-import define
 #databaseName = define.getDatabaseName()
 #define.die()
+import define
+define.run()
 #import cryptography modules
 from cryptography.fernet import Fernet
 
@@ -18,6 +20,7 @@ databaseArr = databaseInfoLines[0].split(',')
 databaseHost = databaseArr[0]
 databaseUser = databaseArr[1]
 databaseName = databaseArr[2]
+databaseId = databaseArr[3]
 databaseInfo.close()
 
 #get password symmetric key
@@ -100,7 +103,7 @@ def addPrinter(building,addArrFields,addArrValues):
         command = 'INSERT INTO '+databaseName+'.'+building+"("
         i=0
         for x in addArrFields: 
-            if (x.lower() == 'id'):
+            if (x.lower() == databaseId):
                 i+=1 
                 continue
             command += x
@@ -116,9 +119,10 @@ def addPrinter(building,addArrFields,addArrValues):
         #execute 
         print(command)
         my_conn.execute(command)
+        print("command executed")
         #my_conn.execute("INSERT INTO test_database."+building+"(name, tag, manufacturer, model, room, serial, department, toner) VALUES ('"+name+"', '"+tag+"', '"+manufacturer+"', '"+model+"', '"+room+"', '"+serial+"', '"+department+"', '"+toner+"')")
         my_connect.commit()
-        messagebox.showinfo("Success!","Record added successfully!")
+        print("committed to database")
     except: 
         messagebox.showerror("Database Error!", "Table does not exist!")
         raise
@@ -142,7 +146,7 @@ def editPrinter(building,colArr,valueArr):
         i=0 #used for index of valueArr
         command = 'UPDATE '+databaseName+'.'+building+' SET ' #UPDATE command
         for x in colArr: 
-            if (x.lower() == 'id'): 
+            if (x.lower() == databaseId): 
                 i+=1
                 continue   
             command += x+' = '+"'"+valueArr[i]+"'"

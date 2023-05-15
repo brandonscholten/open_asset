@@ -2,6 +2,7 @@ def run(currentTable):
     #This is the add dialogue box
     import tkinter as tk
     from tkinter import ttk
+    import success
 
     #creating window
     add = tk.Tk()
@@ -31,6 +32,7 @@ def run(currentTable):
             values.append(add.getvar(name = field))
         main.addPrinter(currentTable,fields,values)
         add.destroy()
+        success.run()
 
     #submit button
     ttk.Button(add, text = "submit record", command=addRecord).grid(column = 2, row = i)
