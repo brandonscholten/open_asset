@@ -7,6 +7,7 @@ databaseHost = ''
 databaseUser = ''
 databaseName = ''
 databaseId = ''
+databaseIdTable = ''
 try:
     #get login details from file
     databaseInfo = open('database.txt', 'r+')
@@ -15,7 +16,8 @@ try:
     databaseHost = databaseArr[0]
     databaseUser = databaseArr[1]
     databaseName = databaseArr[2]
-    databaeId = databaseArr[3]
+    databaseId = databaseArr[3]
+    databaseIdTable = databaeArr[4]
     databaseInfo.close()
 except:
     print('ERROR RETRIEVING DETAILS')
@@ -39,7 +41,8 @@ def defineDatabase():
         #    #instead of writing a paintext password here I am going to try encrypting the textvar and writing it to a different file
         #    define.getvar(name = 'database')
         #    )
-        f.write(define.getvar(name = 'host')+','+define.getvar(name = 'username')+','+define.getvar(name = 'database'))
+        f.write(define.getvar(name = 'host')+','+define.getvar(name = 'username')+','+define.getvar(name = 'database')
+                +','+databaseId+','+databaseIdTable)
         f.close()
     #encrypting the password input
     cipher_suite = Fernet(key)
@@ -50,41 +53,41 @@ def defineDatabase():
     with open('key.bin', 'wb') as file_object: file_object.write(key)
     define.destroy()
     
-def run():
-    define = tk.Tk()
-    define.title('Enter Database Details')
-    define.geometry("355x245")
 
-    #host name
-    ttk.Label(define, text = "Host", font =("Times New Romand", 15)).grid(column = 0, row = 0, padx = 10, pady = 10)
-    host = tk.StringVar(name = "host")
-    hostEdit = ttk.Entry(define, width = 24, textvariable = host)
-    hostEdit.insert(0, databaseHost)
-    hostEdit.grid(column = 1, row = 0, padx = 10, pady = 10)
+define = tk.Tk()
+define.title('Enter Database Details')
+define.geometry("355x245")
 
-    #username
-    ttk.Label(define, text = "Username", font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
-    username = tk.StringVar(name = "username")
-    usernameEdit = ttk.Entry(define, width = 24, textvariable = username)
-    usernameEdit.insert(0, databaseUser)
-    usernameEdit.grid(column = 1, row = 1, padx = 10, pady = 10)
+#host name
+ttk.Label(define, text = "Host", font =("Times New Roman", 15)).grid(column = 0, row = 0, padx = 10, pady = 10)
+host = tk.StringVar(name = "host")
+hostEdit = ttk.Entry(define, width = 24, textvariable = host)
+hostEdit.insert(0, databaseHost)
+hostEdit.grid(column = 1, row = 0, padx = 10, pady = 10)
 
-    #password
-    ttk.Label(define, text = "Password", font =("Times New Roman", 15)).grid(column = 0, row = 2, padx = 10, pady = 10)
-    password = tk.StringVar(name = "password")
-    passwordEdit = ttk.Entry(define, width = 24, textvariable = password, show = "*")
-    passwordEdit.grid(column = 1, row = 2, padx = 10, pady = 10)
+#username
+ttk.Label(define, text = "Username", font =("Times New Roman", 15)).grid(column = 0, row = 1, padx = 10, pady = 10)
+username = tk.StringVar(name = "username")
+usernameEdit = ttk.Entry(define, width = 24, textvariable = username)
+usernameEdit.insert(0, databaseUser)
+usernameEdit.grid(column = 1, row = 1, padx = 10, pady = 10)
 
-    #schema name
-    ttk.Label(define, text = "Database", font =("Times New Roman", 15)).grid(column = 0, row = 3, padx = 10, pady = 10)
-    database = tk.StringVar(name = "database")
-    databaseEdit = ttk.Entry(define, width = 24, textvariable = database)
-    databaseEdit.insert(0, databaseName)
-    databaseEdit.grid(column = 1, row = 3, padx = 10, pady = 10)
+#password
+ttk.Label(define, text = "Password", font =("Times New Roman", 15)).grid(column = 0, row = 2, padx = 10, pady = 10)
+password = tk.StringVar(name = "password")
+passwordEdit = ttk.Entry(define, width = 24, textvariable = password, show = "*")
+passwordEdit.grid(column = 1, row = 2, padx = 10, pady = 10)
 
-    #submit 
-    ttk.Button(define, text = "connect", command =defineDatabase).grid(column = 1, row = 4, padx = 10, pady = 10)
+#schema name
+ttk.Label(define, text = "Database", font =("Times New Roman", 15)).grid(column = 0, row = 3, padx = 10, pady = 10)
+database = tk.StringVar(name = "database")
+databaseEdit = ttk.Entry(define, width = 24, textvariable = database)
+databaseEdit.insert(0, databaseName)
+databaseEdit.grid(column = 1, row = 3, padx = 10, pady = 10)
 
-    #os.remove('database.txt')
+#submit 
+ttk.Button(define, text = "connect", command =defineDatabase).grid(column = 1, row = 4, padx = 10, pady = 10)
 
-    define.mainloop()
+#os.remove('database.txt')
+
+define.mainloop()

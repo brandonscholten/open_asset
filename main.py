@@ -7,47 +7,52 @@ import mysql.connector
 #databaseName = define.getDatabaseName()
 #define.die()
 import define
-define.run()
 #import cryptography modules
 from cryptography.fernet import Fernet
 
 import os
 
-#get login details from file
-databaseInfo = open('database.txt', 'r+')
-databaseInfoLines = databaseInfo.readlines()
-databaseArr = databaseInfoLines[0].split(',')
-databaseHost = databaseArr[0]
-databaseUser = databaseArr[1]
-databaseName = databaseArr[2]
-databaseId = databaseArr[3]
-databaseInfo.close()
+def initialize():
+    #get login details from file
+    databaseInfo = open('database.txt', 'r+')
+    databaseInfoLines = databaseInfo.readlines()
+    databaseArr = databaseInfoLines[0].split(',')
+    global databaseHost
+    global databaseUser
+    global databaseName
+    databaseHost = databaseArr[0]
+    databaseUser = databaseArr[1]
+    databaseName = databaseArr[2]
+    databaseInfo.close()
 
-#get password symmetric key
-keyFile = open('key.bin', 'rb')
-key = keyFile.read()
-keyFile.close()
-#get password ciphertext and decrypt
-cipher_suite = Fernet(key)
-with open('passwd.bin', 'rb') as file_object:
-    for line in file_object:
-        encryptedpwd = line
-uncipher_text = (cipher_suite.decrypt(encryptedpwd))
-password = bytes(uncipher_text).decode("utf-8") #convert to string
+    #get password symmetric key
+    keyFile = open('key.bin', 'rb')
+    key = keyFile.read()
+    keyFile.close()
+    #get password ciphertext and decrypt
+    cipher_suite = Fernet(key)
+    with open('passwd.bin', 'rb') as file_object:
+        for line in file_object:
+            encryptedpwd = line
+    uncipher_text = (cipher_suite.decrypt(encryptedpwd))
+    password = bytes(uncipher_text).decode("utf-8") #convert to string
 
-config = {
-    'host': databaseHost,
-    'user': databaseUser,
-    'password': password, #for some reason this HAS to be a string and not a variable and I'm confused and hurt
-    'database': databaseName
-}
+    config = {
+        'host': databaseHost,
+        'user': databaseUser,
+        'password': password, #for some reason this HAS to be a string and not a variable and I'm confused and hurt
+        'database': databaseName
+    }
 
-my_connect = mysql.connector.connect(**config)
+    global my_connect
+    my_connect = mysql.connector.connect(**config)
 
-#once the database is connected, delete the encryption key and hashed password files
-#I think for security purposes I'm not going to autofill the password since I can't securely store it.
-os.remove('key.bin')
-os.remove('passwd.bin')
+    import getId
+
+    #once the database is connected, delete the encryption key and hashed password files
+    #I think for security purposes I'm not going to autofill the password since I can't securely store it.
+    os.remove('key.bin')
+    os.remove('passwd.bin')
 
 #function which returns a list of buildings
 def getBuildings():

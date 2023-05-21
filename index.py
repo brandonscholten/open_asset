@@ -4,12 +4,12 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import add
-try: import main
+import main
+try: main.initialize()
 except: 
     messagebox.showerror('Database Error!', 'Could not find database schema.')
     raise
-#get ID field if user has never connected to this database
-if (databaseId == ''): import getId
+
 #function to refresh data table
 def rewriteDataTable(data):
     #clear any data in the treeview
