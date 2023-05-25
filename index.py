@@ -96,10 +96,15 @@ def resetTable():
 #initial setup
 resetTable()
 
-#function which returns selected row in the treeview
+#function which returns a list selected row(s) in table as a tuple
 def getRow(): 
-    item = dataTable.focus()
-    return dataTable.item(item, 'values')
+    #item = dataTable.focus() #returns one row
+    items = dataTable.selection() #returns all selected rows
+    #return dataTable.item(item, 'values')
+    #create a list of items to return
+    result = []
+    for x in items: result.push(dataTable.item(x, 'values'))
+    return result
 
 #add function
 def addItem(): 
@@ -113,8 +118,9 @@ def addItem():
 def edit(): 
     try:
         import edit
-        row = getRow()
-        edit.run(window.getvar(name = 'building'),row)
+        rows = getRow()
+        #edit.run(window.getvar(name = 'building'),row)
+        for x in rows: edit.run(window.getvar(name 'building'), x)
         resetTable()
         dataTable.update()
         dataFrane.update()
@@ -127,10 +133,13 @@ def delete():
     import main
     table = window.getvar(name = 'building')
     print('table: '+table)
-    row = getRow()
+    rows = getRow()
     columns = main.getColumns(table)
-    main.deletePrinter(columns[0],row[0],table)
-    messagebox.showinfo("Success!","Record deleted successfully!")
+    #main.deletePrinter(columns[0],row[0],table)
+    #messagebox.showinfo("Success!","Record deleted successfully!")
+    for x in rows: 
+        main.deletePrinter(columns[0], x[0], table)
+        messagebox.showInfo("Success!", "Record deleted successfully!")
     resetTable()
     dataTable.update()
     dataFrame.update()
